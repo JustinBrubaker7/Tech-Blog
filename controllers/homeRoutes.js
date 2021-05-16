@@ -11,6 +11,7 @@ router.get("/", async (req, res) => {
 
     res.render("home", {
       posts,
+      
       //loggedIn: req.session.loggedIn,
       // layout: "main.handlebars",
     });

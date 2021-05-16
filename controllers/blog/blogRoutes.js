@@ -1,24 +1,34 @@
 const router = require("express").Router();
-const { User, Post } = require("../models");
-const withAuth = require("../utils/auth");
+const { User, Post } = require("../../models");
+const withAuth = require("../../utils/auth");
 
-// //returns home dashboard page
-// router.get("/", withAuth, async (req, res) => {
-//   try {
-//     const totalCars = await Car.count({ where: { sold: false } });
-//     const soldCars = await Car.count({ where: { sold: true } });
+// //returns blog form
+router.post("/new", async (req, res) => {
+  try {
+    const newPostCreate = await Post.create({
+      title: req.body.title,
+      content: req.body.content,
+    }).then((post) => {
+      res.render("home", {
+        post,
+      });
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
 
-//     res.render("dealer", {
-//       home: true,
-//       totalCars,
-//       soldCars,
-//       loggedIn: req.session.loggedIn,
-//     });
-//   } catch (err) {
-//     console.log(err);
-//     res.status(500).json(err);
-//   }
-// });
+router.get('/new', async (req,res) => {
+    try {
+
+        res.render("new-post-form", {
+            });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    }
+})
 
 // //returns the form for a new car
 // router.get("/newcar", withAuth, async (req, res) => {
