@@ -12,7 +12,7 @@ router.get("/", async (req, res) => {
     res.render("home", {
       posts,
       
-      //loggedIn: req.session.loggedIn,
+      loggedIn: req.session.loggedIn,
       // layout: "main.handlebars",
     });
   } catch (err) {
