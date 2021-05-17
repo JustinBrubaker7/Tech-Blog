@@ -6,12 +6,13 @@ const withAuth = require("../utils/auth");
 //render home page
 router.get("/", async (req, res) => {
   try {
-    const allBlogPosts = await Post.findAll();
+    const allBlogPosts = await Post.findAll({ include: User});
     const posts = allBlogPosts.map((postInfo) => postInfo.get({ plain: true }));
-
+    const userId = await User.findAll();
+    console.log(req.user)
     res.render("home", {
       posts,
-      
+      id: req.user,
       loggedIn: req.session.loggedIn,
       // layout: "main.handlebars",
     });
